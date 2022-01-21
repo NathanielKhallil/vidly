@@ -1,12 +1,14 @@
+import { Rental, validate } from "../models/rental.js";
 import express from "express";
-import { rental, validate } from "../models/rental";
+import Fawn from "fawn";
+Fawn.init("mongodb://127.0.0.1:27017/vidly");
 
+import { Movie } from "../models/movie.js";
+import { Customer } from "../models/customer.js";
 const router = express.Router();
 
-const { Genre } = require("../models/genre");
-
 router.get("/", async (req, res) => {
-  const rentals = await rental.find().sort("name");
+  const rentals = await Rental.find().sort("-dateOut");
   res.send(rentals);
 });
 
@@ -14,20 +16,43 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
-  if (!genre) return res.status(400).send("Invalid genre.");
+  const customer = await Customer.findById(req.body.customerId);
+  if (!customer) return res.status(400).send("Invalid customer.");
+
+  const movie = await Movie.findById(req.body.movieId);
+  if (!movie) return res.status(400).send("Invalid movie.");
+
+  if (movie.numberInStock === 0)
+    return res.status(400).send("Movie not in stock.");
 
   let rental = new Rental({
-    title: req.body.title,
-    genre: {
-      _id: genre._id,
-      name: genre.name,
+    customer: {
+      _id: customer._id,
+      name: customer.name,
+      phone: customer.phone,
     },
-    numberInStock: req.body.numberInStock,
-    dailyRentalRate: req.body.dailyRentalRate,
+    movie: {
+      _id: movie._id,
+      title: movie.title,
+      dailyRentalRate: movie.dailyRentalRate,
+    },
   });
-  rental = await rental.save();
-  res.send(rental);
+
+  try {
+    new Fawn.Task()
+      .save("rentals", rental)
+      .update(
+        "movies",
+        { _id: movie._id },
+        { $inc: { numberInStock: -1 } },
+        { $inc: { dailyRentalRate: +1 } }
+      )
+      .run();
+
+    res.send(rental);
+  } catch (ex) {
+    res.status(500).send("Something went wrong");
+  }
 });
 
 router.put("/:id", async (req, res) => {
@@ -60,7 +85,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const rental = await rental.findByIdAndRemove(req.params.id);
+  const rental = await Rental.findByIdAndRemove(req.params.id);
 
   if (!rental)
     return res.status(404).send("The rental with the given ID was not found.");
