@@ -1,0 +1,31 @@
+{
+  "name": "vidly",
+  "version": "1.0.0",
+  "description": "MongoDB Project",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.2",
+    "helmet": "^4.6.0",
+    "joi": "^17.5.0",
+    "mongoose": "^6.1.4",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "fawn": "^2.1.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NathanielKhallil/vidly.git"
+  },
+  "author": "Nathaniel Khallil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NathanielKhallil/vidly/issues"
+  },
+  "homepage": "https://github.com/NathanielKhallil/vidly#readme"
+}

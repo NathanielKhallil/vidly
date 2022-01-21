@@ -5,6 +5,8 @@ import helmet from "helmet";
 import debug from "debug";
 import { genres } from "./routes/genres.js";
 import { customers } from "./routes/customers.js";
+import { movies } from "./routes/movies.js";
+import { rentals } from "./routes/rentals.js";
 import mongoose from "mongoose";
 
 const debugging = debug("app:startup");
@@ -22,6 +24,8 @@ app.use(express.json());
 app.use(helmet());
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
+app.use("/api/movies", movies);
+app.use("/api/rentals", rentals);
 
 //config
 console.log("Application Name: " + config.get("name"));

@@ -1,5 +1,6 @@
 import express from "express";
-import { Genre, validate } from "../models/genre";
+import { Genre } from "../models/genre.js";
+import { validate } from "../models/genre.js";
 
 const router = express.Router();
 

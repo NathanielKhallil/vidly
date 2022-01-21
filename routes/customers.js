@@ -1,5 +1,5 @@
 import express from "express";
-import { Customer, validate } from "../models/customer";
+import { Customer, validate } from "../models/customer.js";
 
 const router = express.Router();
 
@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-  const customer = await customer.findByIdAndRemove(req.params.id);
+  const customer = await Customer.findByIdAndRemove(req.params.id);
 
   if (!customer)
     return res
