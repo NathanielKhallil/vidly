@@ -5,6 +5,7 @@ import Joi from "joi";
 const Movie = mongoose.model(
   "Movies",
   new mongoose.Schema({
+    _id: mongoose.ObjectId,
     title: {
       type: String,
       required: true,

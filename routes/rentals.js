@@ -1,4 +1,5 @@
-import { Rental, validate } from "../models/rental.js";
+import { Rental } from "../models/rental.js";
+import { validate } from "../models/rental.js";
 import express from "express";
 import Fawn from "fawn";
 Fawn.init("mongodb://127.0.0.1:27017/vidly");
@@ -76,21 +77,32 @@ router.put("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const rental = await rental.findById(req.params.id);
+  const rental = await Rental.findById(req.params.id);
+  try {
+    if (!rental)
+      return res
+        .status(404)
+        .send("The rental with the given ID was not found.");
 
-  if (!rental)
-    return res.status(404).send("The rental with the given ID was not found.");
-
-  res.send(rental);
+    res.send(rental);
+  } catch (err) {
+    return res.status(404).send(err);
+  }
 });
 
 router.delete("/:id", async (req, res) => {
-  const rental = await Rental.findByIdAndRemove(req.params.id);
+  try {
+    const rental = await Rental.findByIdAndRemove(req.params.id);
 
-  if (!rental)
-    return res.status(404).send("The rental with the given ID was not found.");
+    if (!rental)
+      return res
+        .status(404)
+        .send("The rental with the given ID was not found.");
 
-  res.send(rental);
+    res.send(rental);
+  } catch (err) {
+    return res.status(404).send(err);
+  }
 });
 
 export { router as rentals };

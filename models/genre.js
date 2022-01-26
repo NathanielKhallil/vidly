@@ -13,6 +13,9 @@ const genreSchema = new mongoose.Schema({
 const Genre = mongoose.model("Genre", genreSchema);
 
 function validateGenre(genre) {
+  if (!mongoose.Types.ObjectId.isValid(req.id)) {
+    return res.status(400).send("Invalid object id");
+  }
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
   });
