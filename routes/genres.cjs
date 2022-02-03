@@ -1,6 +1,5 @@
-import express from "express";
-import { Genre } from "../models/genre.js";
-import { validate } from "../models/genre.js";
+const express = require("express");
+const { Genre, validate, validatePost } = require("../models/genre.cjs");
 
 const router = express.Router();
 
@@ -10,7 +9,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { error } = validate(req.body); // equiv of result.error
+  const { error } = validatePost(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 
   let genre = new Genre({ name: req.body.name });
@@ -63,4 +62,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export { router as genres };
+exports.genres = router;

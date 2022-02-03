@@ -1,13 +1,16 @@
-import express from "express";
-import morgan from "morgan";
-import config from "config";
-import helmet from "helmet";
-import debug from "debug";
-import { genres } from "./routes/genres.js";
-import { customers } from "./routes/customers.js";
-import { movies } from "./routes/movies.js";
-import { rentals } from "./routes/rentals.js";
-import mongoose from "mongoose";
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
+const express = require("express");
+const morgan = require("morgan");
+const config = require("config");
+const helmet = require("helmet");
+const debug = require("debug");
+const { genres } = require("./routes/genres.cjs");
+const { customers } = require("./routes/customers.cjs");
+const { movies } = require("./routes/movies.cjs");
+const { rentals } = require("./routes/rentals.cjs");
+const { users } = require("./routes/users.cjs");
+const mongoose = require("mongoose");
 
 const debugging = debug("app:startup");
 const app = express();
@@ -26,6 +29,7 @@ app.use("/api/genres", genres);
 app.use("/api/customers", customers);
 app.use("/api/movies", movies);
 app.use("/api/rentals", rentals);
+app.use("/api/users", users);
 
 //config
 console.log("Application Name: " + config.get("name"));

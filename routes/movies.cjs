@@ -1,7 +1,6 @@
-import express from "express";
-import { Movie } from "../models/movie.js";
-import { validate } from "../models/movie.js";
-import { Genre } from "../models/genre.js";
+const express = require("express");
+const { Movie, validate } = require("../models/movie.cjs");
+const { Genre } = require("../models/genre.cjs");
 
 const router = express.Router();
 
@@ -17,7 +16,7 @@ router.post("/", async (req, res) => {
   const genre = await Genre.findById(req.body.genreId);
   if (!genre) return res.status(400).send("Invalid genre.");
 
-  let movie = new Movie({
+  const movie = new Movie({
     title: req.body.title,
     genre: {
       _id: genre._id,
@@ -26,7 +25,7 @@ router.post("/", async (req, res) => {
     numberInStock: req.body.numberInStock,
     dailyRentalRate: req.body.dailyRentalRate,
   });
-  movie = await movie.save();
+  await movie.save();
 
   res.send(movie);
 });
@@ -76,4 +75,4 @@ router.get("/:id", async (req, res) => {
   res.send(movie);
 });
 
-export { router as movies };
+exports.movies = router;

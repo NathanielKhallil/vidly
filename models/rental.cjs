@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Joi from "Joi";
+const mongoose = require("mongoose");
+const Joi = require("joi");
 
 const Rental = mongoose.model(
   "Rental",
@@ -60,11 +60,11 @@ const Rental = mongoose.model(
 
 function validateRental(rental) {
   const schema = Joi.object({
-    customerId: Joi.string().required(),
+    customerId: Joi.objectId(),
     movieId: Joi.string().required(),
   });
   return schema.validate(rental);
 }
 
-export { Rental as Rental };
-export { validateRental as validate };
+exports.Rental = Rental;
+exports.validate = validateRental;

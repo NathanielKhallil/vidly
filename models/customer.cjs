@@ -1,5 +1,6 @@
-import Joi from "joi";
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const Customer = mongoose.model(
   "Customer",
@@ -33,5 +34,5 @@ function validateCustomer(customer) {
   return schema.validate(customer);
 }
 
-export { Customer as Customer };
-export { validateCustomer as validate };
+exports.Customer = Customer;
+exports.validate = validateCustomer;

@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import { genreSchema } from "./genre.js";
-import Joi from "joi";
+const mongoose = require("mongoose");
+const Joi = require("joi");
+
+const { genreSchema } = require("./genre.cjs");
 
 const Movie = mongoose.model(
   "Movies",
@@ -35,7 +36,7 @@ const Movie = mongoose.model(
 function validateMovie(movie) {
   const schema = Joi.object({
     title: Joi.string().min(5).max(50).required(),
-    genreId: Joi.string().required(),
+    genreId: Joi.objectId(),
     numberInStock: Joi.number().min(0).required(),
     dailyRentalRate: Joi.number().min(0).required(),
   });
@@ -43,5 +44,5 @@ function validateMovie(movie) {
   return schema.validate(movie);
 }
 
-export { Movie as Movie };
-export { validateMovie as validate };
+exports.Movie = Movie;
+exports.validate = validateMovie;

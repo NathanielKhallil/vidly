@@ -1,5 +1,5 @@
-import express from "express";
-import { Customer, validate } from "../models/customer.js";
+const express = require("express");
+const { Customer, validate } = require("../models/customer.cjs");
 
 const router = express.Router();
 
@@ -65,4 +65,4 @@ router.delete("/:id", async (req, res) => {
   res.send(customer);
 });
 
-export { router as customers };
+exports.customers = router;

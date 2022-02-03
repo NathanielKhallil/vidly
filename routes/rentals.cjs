@@ -1,11 +1,10 @@
-import { Rental } from "../models/rental.js";
-import { validate } from "../models/rental.js";
-import express from "express";
-import Fawn from "fawn";
+const { Rental, validate } = require("../models/rental.cjs");
+const { Movie } = require("../models/movie.cjs");
+const { Customer } = require("../models/customer.cjs");
+const express = require("express");
+const Fawn = require("fawn");
 Fawn.init("mongodb://127.0.0.1:27017/vidly");
 
-import { Movie } from "../models/movie.js";
-import { Customer } from "../models/customer.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -45,8 +44,7 @@ router.post("/", async (req, res) => {
       .update(
         "movies",
         { _id: movie._id },
-        { $inc: { numberInStock: -1 } },
-        { $inc: { dailyRentalRate: +1 } }
+        { $inc: { numberInStock: -1 }, $inc: { dailyRentalRate: +1 } }
       )
       .run();
 
@@ -105,4 +103,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export { router as rentals };
+exports.rentals = router;
