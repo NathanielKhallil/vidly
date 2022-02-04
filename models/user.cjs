@@ -14,12 +14,12 @@ const User = mongoose.model(
     email: {
       type: String,
       required: true,
+      unique: true,
       minLength: 7,
       maxlength: 50,
     },
     password: {
       type: String,
-      unique: true,
       required: true,
       minLength: 6,
       maxlength: 255,

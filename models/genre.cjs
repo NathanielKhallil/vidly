@@ -22,7 +22,8 @@ function validateGenre(genre) {
   });
   return schema.validate(genre);
 }
-
+/* new function avoids errors related to mongoose.Types.ObjectId.isValid(req.id)
+causing the error: ReferenceError: req is not defined on posting new users */
 function validateGenrePost(genre) {
   const schema = Joi.object({
     name: Joi.string().min(5).required(),

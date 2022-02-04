@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "MongoDB Project",
   "main": "index.js",
-  
   "dependencies": {
     "config": "^3.3.6",
     "express": "^4.17.2",
@@ -11,6 +10,7 @@
     "joi": "^17.5.0",
     "joi-objectid": "^4.0.2",
     "joi-oid": "^1.1.2",
+    "lodash": "^4.17.21",
     "mongoose": "^6.1.4",
     "morgan": "^1.10.0"
   },
