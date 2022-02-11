@@ -10,6 +10,7 @@ const { customers } = require("./routes/customers.cjs");
 const { movies } = require("./routes/movies.cjs");
 const { rentals } = require("./routes/rentals.cjs");
 const { users } = require("./routes/users.cjs");
+const { auth } = require("./routes/auth.cjs");
 const mongoose = require("mongoose");
 
 const debugging = debug("app:startup");
@@ -30,6 +31,7 @@ app.use("/api/customers", customers);
 app.use("/api/movies", movies);
 app.use("/api/rentals", rentals);
 app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 //config
 console.log("Application Name: " + config.get("name"));
