@@ -16,6 +16,11 @@ const mongoose = require("mongoose");
 const debugging = debug("app:startup");
 const app = express();
 
+if (!config.get("jwtPrivateKey")) {
+  console.log("FATAL ERROR: jwtPrivateKey is not defined!");
+  process.exit(1);
+}
+
 app.set("view engine", "pug");
 app.set("views", "./views"); //default
 
@@ -35,8 +40,6 @@ app.use("/api/auth", auth);
 
 //config
 console.log("Application Name: " + config.get("name"));
-console.log("Mail Server: " + config.get("mail.host"));
-console.log("Mail Password: " + config.get("mail.password"));
 
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
