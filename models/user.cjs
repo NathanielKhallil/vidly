@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const passwordComplexity = require("joi-password-complexity");
@@ -13,30 +15,38 @@ const complexityOptions = {
   requirementCount: 4,
 };
 
-const User = mongoose.model(
-  "User",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      minLength: 5,
-      maxlength: 50,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      minLength: 7,
-      maxlength: 50,
-    },
-    password: {
-      type: String,
-      required: true,
-      minLength: 6,
-      maxlength: 255,
-    },
-  })
-);
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minLength: 5,
+    maxlength: 50,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    minLength: 7,
+    maxlength: 50,
+  },
+  password: {
+    type: String,
+    required: true,
+    minLength: 6,
+    maxlength: 255,
+  },
+  isAdmin: Boolean,
+});
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, isAdmin: this.isAdmin },
+    config.get("jwtPrivateKey")
+  );
+  return token;
+};
+
+const User = mongoose.model("User", userSchema);
 
 function validateUser(user) {
   if (!mongoose.Types.ObjectId.isValid(req.id))

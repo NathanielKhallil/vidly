@@ -1,6 +1,7 @@
+const { auth } = require("../middleware/auth.cjs");
+const { admin } = require("../middleware/admin.cjs");
 const express = require("express");
 const { Genre, validate, validatePost } = require("../models/genre.cjs");
-
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -8,7 +9,7 @@ router.get("/", async (req, res) => {
   res.send(genres);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validatePost(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -49,7 +50,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   try {
     const genre = await Genre.findByIdAndRemove(req.params.id);
 
