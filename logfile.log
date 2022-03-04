@@ -1,0 +1,21 @@
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"Testing logs"}
+{"level":"error","message":"could not find genre"}
+{"level":"error","message":"could not find genre"}
+{"level":"error","message":"could not find genre"}
+{"level":"error","message":"could not find genre"}
+{"level":"error","message":"Cast to ObjectId failed for value \"621e8c4a79a13a31c8758562\\n\" (type string) at path \"_id\" for model \"Genre\""}
+{"level":"error","message":"res.statusCode is not a function"}
+{"level":"error","message":"res.statusCode is not a function"}
+{"level":"error","message":"res.statusCode is not a function"}
+{"level":"error","message":"Unexpected token o in JSON at position 1"}
+{"level":"error","message":"Unexpected token o in JSON at position 1"}
+{"level":"error","message":"postData is not defined"}
+{"level":"error","message":"body is not defined"}
+{"level":"error","message":"body is not defined"}
+{"level":"error","message":"Cast to ObjectId failed for value \"id\" (type string) at path \"_id\" for model \"Rental\""}
+{"level":"error","message":"Cast to ObjectId failed for value \"id\" (type string) at path \"_id\" for model \"Rental\""}

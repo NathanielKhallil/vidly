@@ -1,5 +1,4 @@
 const { auth } = require("../middleware/auth.cjs");
-const mongoose = require("mongoose");
 const _ = require("lodash");
 const express = require("express");
 const { User, validate, validatePost } = require("../models/user.cjs");
