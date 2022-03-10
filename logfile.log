@@ -19,3 +19,18 @@
 {"level":"error","message":"body is not defined"}
 {"level":"error","message":"Cast to ObjectId failed for value \"id\" (type string) at path \"_id\" for model \"Rental\""}
 {"level":"error","message":"Cast to ObjectId failed for value \"id\" (type string) at path \"_id\" for model \"Rental\""}
+{"level":"info","message":"GET undefined/{} request made for /api/genres/61e9e0b4b2ce27ea858cd88e}"}
+{"level":"info","message":"GET undefined/{} request made for /api/genres/61e9e0b4b2ce27ea858cd88e}"}
+{"level":"info","message":"GET undefined/{} request made for /api/genres/61e9e0b4b2ce27ea858cd88e}"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"error","message":"logging is not defined"}
+{"level":"info","message":"GET {}/{} request made for /api/genres/61e9e0b4b2ce27ea858cd88e}"}
+{"level":"info","message":"GET {}/{} request made for /api/genres/61e9e0b4b2ce27ea858cd88e}"}
+{"level":"info","message":"POST {\"name\":\"hot_tubs\"}/{} request made for /api/genres}"}
+{"level":"info","message":"POST {\"name\":\"hot_tubs\"}/{} request made for /api/genres}"}
+{"level":"info","message":"POST {\"name\":\"hot_tubs\"}/{} request made for /api/genres}"}
