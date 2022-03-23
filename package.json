@@ -28,7 +28,7 @@
   ],
   "devDependencies": {},
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --verbose"
   },
   "repository": {
     "type": "git",
