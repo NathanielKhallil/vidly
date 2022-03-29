@@ -1,5 +1,7 @@
 const request = require("supertest");
 const { Genre } = require("../../models/genre.cjs");
+const { User } = require("../../models/user.cjs");
+const mongoose = require("mongoose");
 let server;
 
 describe("/api/genres", () => {
@@ -25,6 +27,38 @@ describe("/api/genres", () => {
   });
 
   describe("GET /:id", () => {
-    it("should return the genre matching the provided Id.", () => {});
+    it("should return the genre matching the provided Id.", async () => {
+      const genre = new Genre({ name: "genre1" });
+      await genre.save();
+
+      const res = await request(server).get("/api/genres/" + genre._id);
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty("name", genre.name);
+    });
+
+    it("should return 404 if invalid ID is passed.", async () => {
+      const res = await request(server).get("/api/genres/0");
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("POST /", () => {
+    it("Should RETURN 401 ERROR if client is not logged in", async () => {
+      const res = await request(server)
+        .post("/api/genres")
+        .send({ name: "genre1" });
+
+      expect(res.status).toBe(401);
+    });
+    it("Should return 400 if genre is less than 5 characters", async () => {
+      const token = new User().generateAuthToken();
+
+      const res = await request(server)
+        .post("/api/genres")
+        .set("x-auth-token", token)
+        .send({ name: "1234" });
+
+      expect(res.status).toBe(400);
+    });
   });
 });

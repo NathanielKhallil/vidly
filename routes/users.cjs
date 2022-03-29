@@ -1,4 +1,4 @@
-const { auth } = require("../middleware/auth.cjs");
+const auth = require("../middleware/auth.cjs");
 const _ = require("lodash");
 const express = require("express");
 const { User, validate, validatePost } = require("../models/user.cjs");
