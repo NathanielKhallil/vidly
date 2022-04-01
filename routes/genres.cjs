@@ -2,7 +2,7 @@ const auth = require("../middleware/auth.cjs");
 const admin = require("../middleware/admin.cjs");
 const validateObjectId = require("../middleware/validateObjectId.cjs");
 const express = require("express");
-const { Genre, validate, validatePost } = require("../models/genre.cjs");
+const { Genre, validatePost } = require("../models/genre.cjs");
 const mongoose = require("mongoose");
 const router = express.Router();
 
@@ -22,7 +22,7 @@ router.post("/", auth, async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   //validate
-  const { error } = validate(req.body); // equiv of result.error
+  const { error } = validatePost(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 
   const { genre } = await Genre.findByIdAndUpdate(

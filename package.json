@@ -29,7 +29,7 @@
   ],
   "devDependencies": {},
   "scripts": {
-    "test": "jest --watchAll --verbose"
+    "test": "jest --watchAll --verbose --detectOpenHandles --coverage"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { Genre } = require("../../models/genre.cjs");
 const { User } = require("../../models/user.cjs");
-const mongoose = require("mongoose");
+
 let server;
 
 describe("/api/genres", () => {
@@ -36,29 +36,71 @@ describe("/api/genres", () => {
       expect(res.body).toHaveProperty("name", genre.name);
     });
 
-    it("should return 404 if invalid ID is passed.", async () => {
+    it("should return 404 if an invalid ID is passed.", async () => {
       const res = await request(server).get("/api/genres/0");
       expect(res.status).toBe(404);
     });
   });
 
   describe("POST /", () => {
-    it("Should RETURN 401 ERROR if client is not logged in", async () => {
-      const res = await request(server)
+    // Define the happy path, and then in each test we change
+    // one parameter that clearly aligns with the name of the
+    //
+    let token;
+    let name;
+
+    const exec = async () => {
+      return await request(server)
         .post("/api/genres")
-        .send({ name: "genre1" });
+        .set("x-auth-token", token)
+        .send({ name });
+    };
+
+    beforeEach(() => {
+      token = new User().generateAuthToken();
+      name = "Dancing";
+    });
+
+    it("Should RETURN 401 ERROR if client is not logged in", async () => {
+      token = "";
+      const res = await exec();
 
       expect(res.status).toBe(401);
     });
-    it("Should return 400 if genre is less than 5 characters", async () => {
-      const token = new User().generateAuthToken();
 
-      const res = await request(server)
-        .post("/api/genres")
-        .set("x-auth-token", token)
-        .send({ name: "1234" });
+    it("Should return 400 if genre is invalid", async () => {
+      name = "1234";
+
+      const res = await exec();
 
       expect(res.status).toBe(400);
+    });
+
+    it("Should return 400 if genre is less than 5 characters", async () => {
+      name = "1234";
+
+      const res = await exec();
+
+      expect(res.status).toBe(400);
+    });
+    it("Should return 400 if genre is more than 50 characters", async () => {
+      name = new Array(52).join("a");
+      const res = await exec();
+
+      expect(res.status).toBe(400);
+    });
+
+    it("Should save the new genre if it is valid", async () => {
+      await exec();
+
+      const genre = await Genre.find({ name: "Dancing" });
+      expect(genre).not.toBeNull();
+    });
+    it("Should return the new genre if it is valid", async () => {
+      const res = await exec();
+
+      expect(res.body).toHaveProperty("_id");
+      expect(res.body).toHaveProperty("name", "Dancing");
     });
   });
 });
