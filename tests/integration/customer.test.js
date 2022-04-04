@@ -1,6 +1,7 @@
 const request = require("supertest");
 const { Customer } = require("../../models/customer.cjs");
 const { User } = require("../../models/user.cjs");
+const mongoose = require("mongoose");
 
 let server;
 
@@ -42,6 +43,11 @@ describe("/api/customers", () => {
 
     it("should return 404 if an invalid ID is passed.", async () => {
       const res = await request(server).get("/api/customers/0");
+      expect(res.status).toBe(404);
+    });
+    it("should return 404 if no customer with the given Id exists.", async () => {
+      const id = mongoose.Types.ObjectId();
+      const res = await request(server).get("/api/customers/" + id);
       expect(res.status).toBe(404);
     });
   });
