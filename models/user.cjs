@@ -48,17 +48,6 @@ userSchema.methods.generateAuthToken = function () {
 
 const User = mongoose.model("User", userSchema);
 
-function validateUser(user) {
-  if (!mongoose.Types.ObjectId.isValid(req.id))
-    return res.status(400).send("Invalid object id");
-
-  const schema = Joi.object({
-    name: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(7).max(50).required().email(),
-    password: passwordComplexity(complexityOptions).required(),
-  });
-  return schema.validate(user);
-}
 /* new function avoids errors related to mongoose.Types.ObjectId.isValid(req.id)
 causing the error: ReferenceError: req is not defined on posting new users */
 
@@ -71,5 +60,5 @@ function validateUserPost(user) {
   return schema.validate(user);
 }
 exports.User = User;
-exports.validate = validateUser;
+
 exports.validatePost = validateUserPost;
