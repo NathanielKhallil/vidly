@@ -25,7 +25,7 @@ router.put("/:id", [auth, validateObjectId], async (req, res) => {
   const { error } = validatePost(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 
-  const { genre } = await Genre.findByIdAndUpdate(
+  const genre = await Genre.findByIdAndUpdate(
     req.params.id,
     { name: req.body.name },
     {
