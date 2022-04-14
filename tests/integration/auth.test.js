@@ -9,7 +9,7 @@ describe("auth middleware", () => {
     server = require("../../index.cjs");
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Genre.remove({});
   });
   describe("POST /", () => {

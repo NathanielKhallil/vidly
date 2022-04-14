@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  //validate
+  // Validate
   const { error } = validate(req.body); // equiv of result.error
   if (error) return res.status(400).send(error.details[0].message);
 

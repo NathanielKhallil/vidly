@@ -10,7 +10,7 @@ describe("/api/customers", () => {
     server = require("../../index.cjs");
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Customer.remove({});
   });
   describe("GET /", () => {

@@ -10,7 +10,7 @@ describe("/api/genres", () => {
     server = require("../../index.cjs");
   });
   afterEach(async () => {
-    server.close();
+    await server.close();
     await Genre.remove({});
   });
   describe("GET /", () => {
