@@ -31,7 +31,11 @@
   ],
   "devDependencies": {},
   "scripts": {
-    "test": "jest --watchAll --verbose --detectOpenHandles --coverage"
+    "test": "jest --watchAll --verbose --detectOpenHandles --coverage",
+    "start": "node index.cjs"
+  },
+  "engines": {
+    "node":"14.17.3"
   },
   "repository": {
     "type": "git",
