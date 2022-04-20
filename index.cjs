@@ -30,5 +30,4 @@ const server = app.listen(port, () =>
   logging.info(`Listening on port ${port}...`)
 );
 
-console.log(process.env.db);
 module.exports = server;
