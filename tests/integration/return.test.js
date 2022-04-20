@@ -3,6 +3,7 @@ const moment = require("moment");
 const { Rental } = require("../../models/rental.cjs");
 const mongoose = require("mongoose");
 const { User } = require("../../models/user.cjs");
+const { Movie } = require("../../models/movie.cjs");
 
 // Return 401 if client is not logged in
 // Return 400 if customerId is not provided
@@ -33,6 +34,15 @@ describe("/api/returns", () => {
     customerId = mongoose.Types.ObjectId();
     movieId = mongoose.Types.ObjectId();
     token = new User().generateAuthToken();
+
+    movie = new Movie({
+      _id: movieId,
+      title: "12345",
+      dailyRentalRate: 2,
+      genre: { name: "12345" },
+      numberInStock: 10,
+    });
+    await movie.save();
 
     rental = new Rental({
       customer: {
@@ -118,5 +128,32 @@ describe("/api/returns", () => {
 
     const rentalInDb = await Rental.findById(rental._id);
     expect(rentalInDb.rentalFee).toBe(10);
+  });
+  it("should increase the stock count of the returned movie.", async () => {
+    const res = await exec();
+    const movieInDb = await Movie.findById(movieId);
+
+    expect(movieInDb.numberInStock).toBe(movie.numberInStock + 1);
+  });
+
+  it("should return the rental if the input is valid.", async () => {
+    const res = await exec();
+    const rentalInDb = await Rental.findById(rental._id);
+
+    // expect(res.body).toHaveProperty("dateOut");
+    // expect(res.body).toHaveProperty("dateReturned");
+    // expect(res.body).toHaveProperty("rentalFee");
+    // expect(res.body).toHaveProperty("customer");
+    // expect(res.body).toHaveProperty("movie");
+    // can be refactored for less repetition.
+    expect(Object.keys(res.body)).toEqual(
+      expect.arrayContaining([
+        "dateOut",
+        "dateReturned",
+        "rentalFee",
+        "customer",
+        "movie",
+      ])
+    );
   });
 });

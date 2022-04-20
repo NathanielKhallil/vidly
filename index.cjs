@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const helmet = require("helmet");
 const debug = require("debug");
 const winston = require("winston");
 const debugging = debug("app:startup");
@@ -11,8 +10,7 @@ require("./startup/routes.cjs")(app);
 require("./startup/db.cjs")();
 require("./startup/config.cjs")();
 require("./startup/validation.cjs")();
-
-app.use(helmet());
+require("./startup/prod.cjs")(app);
 
 app.set("view engine", "pug");
 app.set("views", "./views"); //default
