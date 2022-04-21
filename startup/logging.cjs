@@ -34,7 +34,7 @@ module.exports = function (app) {
     transports: [
       new winston.transports.Console({ colorize: true, PrettyPrint: true }),
       new winston.transports.MongoDB({
-        db: "mongodb+srv://ViktorKhallil:1234@cluster0.bwsa3.mongodb.net/Vidly?retryWrites=true&w=majority",
+        db: "mongodb+srv://ViktorKhallil:1234@vidly.bwsa3.mongodb.net/vidly?retryWrites=true&w=majority",
         level: "info",
         format: winston.format.json(),
       }),
