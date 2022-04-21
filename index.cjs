@@ -20,14 +20,14 @@ if (app.get("env") === "development") {
   debugging("Morgan enabled....");
 }
 
-// const logging = winston.createLogger({
-//   transports: [new winston.transports.Console()],
-// });
+const logging = winston.createLogger({
+  transports: [new winston.transports.Console()],
+});
 
 const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () =>
-  console.log(`Listening on port ${port}...`)
+  logging.info(`Listening on port ${port}...`)
 );
 
 module.exports = server;
