@@ -29,13 +29,12 @@
     "./node_modules/@types",
     "./types"
   ],
-  "devDependencies": {},
   "scripts": {
     "test": "jest --watchAll --verbose --detectOpenHandles --coverage",
     "start": "node index.cjs"
   },
   "engines": {
-    "node":"14.17.3"
+    "node": "14.17.3"
   },
   "repository": {
     "type": "git",
