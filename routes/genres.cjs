@@ -3,7 +3,6 @@ const admin = require("../middleware/admin.cjs");
 const validateObjectId = require("../middleware/validateObjectId.cjs");
 const express = require("express");
 const { Genre, validatePost } = require("../models/genre.cjs");
-const mongoose = require("mongoose");
 const router = express.Router();
 
 router.get("/", async (req, res) => {

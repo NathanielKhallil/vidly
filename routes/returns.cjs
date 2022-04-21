@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const Joi = require("joi");
-const { Customer } = require("../models/customer.cjs");
 const { Movie } = require("../models/movie.cjs");
 const { Rental } = require("../models/rental.cjs");
 const auth = require("../middleware/auth.cjs");
