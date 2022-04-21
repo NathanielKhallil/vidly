@@ -27,7 +27,7 @@ const logging = winston.createLogger({
 const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () =>
-  logging.info(`Listening on port ${port}...`)
+  logging.info(`Listening on port ${port} in...`)
 );
 
 module.exports = server;
