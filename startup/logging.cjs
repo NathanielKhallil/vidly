@@ -4,9 +4,9 @@ require("winston-mongodb");
 require("express-async-errors");
 
 module.exports = function (app) {
-  winston.exceptions.handle(
-    new winston.transports.File({ filename: "uncaughtExeptions.log" })
-  );
+  //   winston.exceptions.handle(
+  //     new winston.transports.File({ filename: "uncaughtExeptions.log" })
+  // );
   //   winston.rejections.handle(
   //     new winston.transports.File({ filename: "uncaughtRejections.log" })
   //   );
@@ -30,19 +30,19 @@ module.exports = function (app) {
     next();
   });
 
-  const logging = winston.createLogger({
-    transports: [
-      new winston.transports.Console({ colorize: true, PrettyPrint: true }),
-      new winston.transports.MongoDB({
-        db: "mongodb+srv://ViktorKhallil:1234@vidly.bwsa3.mongodb.net/vidly?retryWrites=true&w=majority",
-        level: "info",
-        format: winston.format.json(),
-      }),
-    ],
-  });
+  // const logging = winston.createLogger({
+  //   transports: [
+  //     new winston.transports.Console({ colorize: true, PrettyPrint: true }),
+  //     new winston.transports.MongoDB({
+  //       db: "mongodb+srv://ViktorKhallil:1234@vidly.bwsa3.mongodb.net/vidly?retryWrites=true&w=majority",
+  //       level: "info",
+  //       format: winston.format.json(),
+  //     }),
+  //   ],
+  // });
 
   app.use((req, res, done) => {
-    logging.info(
+    console.log(
       `${req.method} ${JSON.stringify(req.body)}/${JSON.stringify(
         req.params
       )} request made for ${req.originalUrl}}`
